@@ -1,5 +1,5 @@
 # UnknownAssistant
-A software assistant that does everything that is possible for you
+A software assistant that does everything that is possible for you.
 I'm still thinking a proper name to give. Until then, the assistant remains unknown.
 
 - TV module is added. Here are some commands that you can give (if you have a Samsung TV).
