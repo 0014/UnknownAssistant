@@ -44,7 +44,7 @@ public class CommandActivity extends Activity {
         controller = new ControlCommand(getApplicationContext());
 
         // request permissions on load
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.TRANSMIT_IR}, MY_PERMISSIONS_REQUEST_IR_TRANSMIT);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.TRANSMIT_IR, Manifest.permission.READ_CONTACTS}, MY_PERMISSIONS_REQUEST_IR_TRANSMIT);
         // set retry button to invisible on default
         btnRetry.setVisibility(View.INVISIBLE);
 

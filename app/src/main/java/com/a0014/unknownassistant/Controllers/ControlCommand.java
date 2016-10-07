@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.View;
 
 import com.a0014.unknownassistant.Activities.Activityest;
+import com.a0014.unknownassistant.Activities.SettingsActivity;
 
 /**
  * Created by arifg on 10/1/2016.
@@ -66,8 +67,12 @@ public class ControlCommand {
         }else if (Command.contains("computer") || Command.contains("pc") || currentApplication == APP_PC) {
             currentApplication = APP_SMS;
             return true;
+        }else if (Command.contains("settings")) {
+            Intent myIntent = new Intent(c, SettingsActivity.class);
+            myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            c.startActivity(myIntent);
+            return true;
         }
-
         return false;
     }
 }
