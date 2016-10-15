@@ -38,6 +38,11 @@ public class CustomContactsListViewAdapter extends ArrayAdapter<String>{
         txtName.setText("\t" + name);
         txtPOhoneNumber.setText("\t" + phone);
 
+        if(strings.get(position).contains("colorChanged")){
+            txtName.setBackgroundColor(0xFF233240);
+            txtPOhoneNumber.setBackgroundColor(0xFF1D2F40);
+        }
+
         return row;
     }
 }
