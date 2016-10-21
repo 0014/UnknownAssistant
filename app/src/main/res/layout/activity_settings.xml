@@ -20,32 +20,15 @@
         android:dividerHeight="13px"
         android:background="#8AD3E8"
         android:layout_weight="1" >
-
     </ListView>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <Button
+        android:id="@+id/btnDone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#D3D3D3">
-        <Button
-            android:id="@+id/btnDone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#1D2F40"
-            android:textColor="#FFFFFF"
-            android:text="Done"
-            android:layout_marginRight="2dp"
-            android:layout_weight="1">
-        </Button>
-        <Button
-            android:id="@+id/btnRemove"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#1D2F40"
-            android:textColor="#FFFFFF"
-            android:text="Remove"
-            android:layout_marginLeft="2dp"
-            android:layout_weight="1">
-        </Button>
-    </LinearLayout>
+        android:background="#1D2F40"
+        android:textColor="#FFFFFF"
+        android:text="DONE" >
+    </Button>
+
 </LinearLayout>

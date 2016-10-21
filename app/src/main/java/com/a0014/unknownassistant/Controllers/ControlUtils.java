@@ -7,10 +7,10 @@ package com.a0014.unknownassistant.Controllers;
 public class ControlUtils {
 
     // get the number before that is before the "times" message
-    public static int IterationAmount(String message)
+    public static int GetNumberBeforeKeyword(String message, String key)
     {
         int value = 0; int indexStart = 0;
-        int indexEnd = message.indexOf("times") - 1;
+        int indexEnd = message.indexOf(key) - 1;
 
         for(int i = indexEnd - 1; i > 0; i--){
             if(message.charAt(i) == ' '){
@@ -28,9 +28,9 @@ public class ControlUtils {
         return value;
 }
 
-    public static String GetChannel(String message)
+    public static String GetNumberAfterKeyword(String message, String key)
     {
-        int indexStart = message.indexOf("channel") + 8;
+        int indexStart = message.indexOf(key) + key.length() + 1;
         int indexEnd = message.length();
 
         for(int i = indexStart; i < message.length(); i++){

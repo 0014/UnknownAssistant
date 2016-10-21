@@ -18,18 +18,18 @@ public class ControlTv {
     public void ApplyCommand(String command)
     {
         if(command.contains("channel") ){
-            rmc.OpenChannel(ControlUtils.GetChannel(command));
+            rmc.OpenChannel(ControlUtils.GetNumberAfterKeyword(command, "channel"));
         }else if(command.contains("on") || command.contains("off") || command.contains("open") || command.contains("close")) {
             rmc.TogglePower();
         }else if(command.contains("volume") && (command.contains("up") || command.contains("increase"))){
             if(command.contains("times")){
-                rmc.IncreaseVolume(ControlUtils.IterationAmount(command));
+                rmc.IncreaseVolume(ControlUtils.GetNumberBeforeKeyword(command, "times"));
             }else{
                 rmc.IncreaseVolume( );
             }
         }else if(command.contains("volume") && (command.contains("down") || command.contains("decrease"))){
             if(command.contains("times")){
-                rmc.DecreaseVolume(ControlUtils.IterationAmount(command));
+                rmc.DecreaseVolume(ControlUtils.GetNumberBeforeKeyword(command, "times"));
             }else{
                 rmc.DecreaseVolume( );
             }

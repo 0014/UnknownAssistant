@@ -30,18 +30,13 @@ public class CustomContactsListViewAdapter extends ArrayAdapter<String>{
         View row = inflater.inflate(R.layout.custom_contacts_list_view, parent, false);
 
         TextView txtName = (TextView) row.findViewById(R.id.txt_name);
-        TextView txtPOhoneNumber = (TextView) row.findViewById(R.id.txt_phone_number);
+        TextView txtPhoneNumber = (TextView) row.findViewById(R.id.txt_phone_number);
 
         String name = strings.get(position).split(", ")[0];
         String phone = strings.get(position).split(", ")[1];
 
         txtName.setText("\t" + name);
-        txtPOhoneNumber.setText("\t" + phone);
-
-        if(strings.get(position).contains("colorChanged")){
-            txtName.setBackgroundColor(0xFF233240);
-            txtPOhoneNumber.setBackgroundColor(0xFF1D2F40);
-        }
+        txtPhoneNumber.setText("\t" + phone);
 
         return row;
     }

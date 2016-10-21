@@ -14,7 +14,7 @@ public class ControlCommand {
 
     private static final int APP_IDLE = 100;
     private static final int APP_EMAIL = 101;
-    private static final int APP_SMS = 102;
+    private static final int APP_CONTACT = 102;
     private static final int APP_PC = 103;
     private static final int APP_TV = 103;
 
@@ -27,7 +27,7 @@ public class ControlCommand {
     }
 
     ControlTv tvController;
-    ControlSms smsController;
+    ControlContact contactController;
     ControlEmail emailController;
     ControlPc pcController;
     Context c;
@@ -39,7 +39,7 @@ public class ControlCommand {
         this.c = c;
         // instantiate the controller classes
         tvController = new ControlTv(c);
-        smsController = new ControlSms();
+        contactController = new ControlContact(c);
         emailController = new ControlEmail();
         pcController = new ControlPc();
     }
@@ -61,11 +61,12 @@ public class ControlCommand {
         }else if(Command.contains("email") || currentApplication == APP_EMAIL){
             currentApplication = APP_EMAIL;
             return true;
-        }else if(Command.contains("text") || currentApplication == APP_SMS) {
-            currentApplication = APP_SMS;
+        }else if(Command.contains("text") || Command.contains("call") || Command.contains("message") || currentApplication == APP_CONTACT) {
+            currentApplication = APP_CONTACT;
+            contactController.ApplyCommand(command);
             return true;
         }else if (Command.contains("computer") || Command.contains("pc") || currentApplication == APP_PC) {
-            currentApplication = APP_SMS;
+            currentApplication = APP_PC;
             return true;
         }else if (Command.contains("settings")) {
             Intent myIntent = new Intent(c, SettingsActivity.class);

@@ -103,7 +103,6 @@ public class RemoteControlModel {
         }
     }
 
-
     private void PressNumber(char digit) {
         switch (digit) {
             case '0':

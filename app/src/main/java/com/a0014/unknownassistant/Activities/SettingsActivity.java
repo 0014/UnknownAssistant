@@ -3,13 +3,11 @@ package com.a0014.unknownassistant.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -23,14 +21,13 @@ public class SettingsActivity extends AppCompatActivity {
 
     static final int PICK_CONTACT=1;
 
-    Button btnAdd, btnDone, btnRemove;
+    Button btnAdd, btnDone;
     ListView lstContacts;
 
     CustomContactsListViewAdapter adapter;
     TinyDB tinydb; // our database where the contacts are stored
 
     ArrayList<String> contacts = new ArrayList<String>();
-    int selectedItem = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +36,12 @@ public class SettingsActivity extends AppCompatActivity {
 
         btnAdd = (Button) findViewById(R.id.btnAdd);
         btnDone = (Button) findViewById(R.id.btnDone);
-        btnRemove = (Button) findViewById(R.id.btnRemove);
         lstContacts = (ListView) findViewById(R.id.lstContacts);
 
         // Get template names and templates
         tinydb = new TinyDB(this);
         contacts = tinydb.getListString("contacts");
-        HighlightSelected();
+
         // Set the ArrayAdapter as the ListView's adapter.
         adapter = new CustomContactsListViewAdapter(this, contacts); // set the adapter
         lstContacts.setAdapter(adapter);
@@ -60,40 +56,12 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        btnRemove.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // pass the command to the controller to apply the command
-                if(selectedItem == -1)
-                    return;
-
-                contacts.remove(selectedItem);
-                tinydb.putListString("contacts", contacts);
-                selectedItem = -1;
-
-                adapter.notifyDataSetChanged();
-            }
-        });
-
         btnDone.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // pass the command to the controller to apply the command
                 finish();
-            }
-        });
-
-        lstContacts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == -1) return; // if empty is chosen do nothing
-
-                selectedItem = i; // choose the selected item
-                HighlightSelected(); // highlight the selected item from the list
-
-                adapter.notifyDataSetChanged(); // refresh list view
             }
         });
     }
@@ -122,26 +90,14 @@ public class SettingsActivity extends AppCompatActivity {
                             String cNumber = phones.getString(phones.getColumnIndex("data1"));
                             String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
 
-                            contacts.add(name + ", " + cNumber + ", " + "colorNotChanged");
-                            tinydb.putListString("contacts", contacts);
+                            contacts.add(name + ", " + cNumber);
 
+                            tinydb.putListString("contacts", contacts);
                             adapter.notifyDataSetChanged();
                         }
                     }
                 }
                 break;
-        }
-    }
-
-    private void HighlightSelected()
-    {
-        for (int j = 0; j < contacts.size(); j++){
-            if(selectedItem == j)
-                contacts.set(j, contacts.get(j).replace("colorNotChanged", "colorChanged"));
-            else
-                contacts.set(j, contacts.get(j).replace("colorChanged", "colorNotChanged"));
-
-            tinydb.putListString("contacts", contacts); // refresh the database informing selected item
         }
     }
 }
