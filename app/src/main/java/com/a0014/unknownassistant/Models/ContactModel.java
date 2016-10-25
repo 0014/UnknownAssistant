@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.SmsManager;
 
+import com.a0014.unknownassistant.Activities.CommandActivity;
+
 /**
  * Created by arif.gencosmanoglu on 10/21/2016.
  */
@@ -18,19 +20,31 @@ public class ContactModel {
     private String Name;
     private String Number;
     private String Tag;
+    private int Position;
     private Context Context;
 
-    public ContactModel(Context c, String name, String number) {
+    public ContactModel(Context c, String name, String number, int position) {
         Context = c;
         Name = name;
-        Number = number;
+        Position = position;
+        // get the number in the correct format
+        Number = number.replace("+", "");
+        Number = Number.replace(" ", "");
+        Number = Number.replace("-", "");
     }
 
-    public ContactModel(Context c, String name, String number, String tag) {
+    public ContactModel(Context c, String name, String number, int position, String tag) {
         Context = c;
+        // set the name
         Name = name;
-        Number = number;
+        // set the number in the correct format
+        Number = number.replace("+", "");
+        Number = Number.replace(" ", "");
+        Number = Number.replace("-", "");
+        // set the tag
         Tag = tag;
+        // set the position
+        Position = position;
     }
 
     public String getName() {
@@ -43,6 +57,10 @@ public class ContactModel {
 
     public String getTag() {
         return Tag;
+    }
+
+    public int getContactNo() {
+        return Position;
     }
 
     public void Call() {

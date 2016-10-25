@@ -41,10 +41,12 @@ public class CommandActivity extends Activity {
         btnRetry = (ImageButton) findViewById(R.id.btnRetry);
 
         // instantiate the controller that will evaluate the commands
-        controller = new ControlCommand(getApplicationContext());
+        controller = new ControlCommand(getApplicationContext(), CommandActivity.this);
 
         // request permissions on load
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.TRANSMIT_IR, Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_IR_TRANSMIT);
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.TRANSMIT_IR, Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE, Manifest.permission.SEND_SMS},
+                MY_PERMISSIONS_REQUEST_IR_TRANSMIT);
         // set retry button to invisible on default
         btnRetry.setVisibility(View.INVISIBLE);
 

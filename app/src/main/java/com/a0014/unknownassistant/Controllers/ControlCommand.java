@@ -30,16 +30,17 @@ public class ControlCommand {
     ControlContact contactController;
     ControlEmail emailController;
     ControlPc pcController;
-    Context c;
+    Context appContext, activityContext;
 
     int currentApplication;
 
-    public ControlCommand(Context c) {
+    public ControlCommand(Context cApp, Context cActivity) {
         currentApplication = APP_IDLE;
-        this.c = c;
+        appContext = cApp;
+        activityContext = cActivity;
         // instantiate the controller classes
-        tvController = new ControlTv(c);
-        contactController = new ControlContact(c);
+        tvController = new ControlTv(appContext);
+        contactController = new ControlContact(activityContext);
         emailController = new ControlEmail();
         pcController = new ControlPc();
     }
@@ -48,13 +49,7 @@ public class ControlCommand {
     {
         Command = command;
 
-        if(Command.contains("test")){
-            // create the intent
-            Intent myIntent = new Intent(c, Activityest.class);
-            myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            c.startActivity(myIntent);
-
-        }else if(Command.contains("tv") || currentApplication == APP_TV){
+        if(Command.contains("tv") || currentApplication == APP_TV){
             currentApplication = APP_TV;
             tvController.ApplyCommand(command);
             return true;
@@ -73,6 +68,11 @@ public class ControlCommand {
             myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             c.startActivity(myIntent);
             return true;
+        }else if(Command.contains("test")){
+            // create the intent
+            //Intent myIntent = new Intent(c, Activityest.class);
+            //myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //c.startActivity(myIntent);
         }
         return false;
     }

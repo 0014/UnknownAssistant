@@ -28,27 +28,28 @@ public class ControlContact {
         if(command.contains("call") ){
             ContactModel cm = CreateContact(command, "call");
             if(cm != null) cm.Call();
-        }else if(command.contains("message")){
-            ContactModel cm = CreateContact(command, "message");
-            if(cm != null) cm.SendText("test");
-        }else if(command.contains("text")){
-            ContactModel cm = CreateContact(command, "text");
-            if(cm != null) cm.SendText("test");
+        }else if(command.contains("message to")){
+            ContactModel cm = CreateContact(command, "message to");
+            if(cm != null) cm.SendText(ControlUtils.GetStringAfterKey(command, String.valueOf(cm.getContactNo())));
+        }else if(command.contains("text to")){
+            ContactModel cm = CreateContact(command, "text to");
+            if(cm != null) cm.SendText(ControlUtils.GetStringAfterKey(command, String.valueOf(cm.getContactNo())));
         }
     }
 
     private ContactModel CreateContact(String command, String key)
     {
-        int contactNumber = -1;
+        int contactNumber;
+
         try{
-            contactNumber = Integer.parseInt(ControlUtils.GetNumberAfterKeyword(command, key)) - 1;
+            contactNumber = Integer.parseInt(ControlUtils.GetNumberAfterKeyword(command, key));
         }catch(Exception e){
             return null;
         }
 
-        String name = contacts.get(contactNumber).split(", ")[0];
-        String phone = contacts.get(contactNumber).split(", ")[1];
+        String name = contacts.get(contactNumber / 100 - 1).split(", ")[0];
+        String phone = contacts.get(contactNumber / 100 - 1).split(", ")[1];
 
-        return new ContactModel(c, name, phone);
+        return new ContactModel(c, name, phone, contactNumber);
     }
 }

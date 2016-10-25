@@ -35,10 +35,18 @@ public class ControlUtils {
 
         for(int i = indexStart; i < message.length(); i++){
             if(message.charAt(i) == ' '){
-                indexEnd = i - 1;
+                indexEnd = i;
                 break;
             }
         }
+
+        return message.substring(indexStart, indexEnd);
+    }
+
+    public static String GetStringAfterKey(String message, String key)
+    {
+        int indexStart = message.indexOf(key) + key.length() + 1;
+        int indexEnd = message.length();
 
         return message.substring(indexStart, indexEnd);
     }
